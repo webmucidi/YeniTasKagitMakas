@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <body>
+    <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>Rock, Paper, Scissors Game</title>
+      <link rel="stylesheet" href="style.css" />
+    </head>
+  </body>
+
+  <h1>Welcome to Rock, Paper, Scissors Game!</h1>
+  <p>Please select the number of players:</p>
+  <button onclick="selectPlayers(1)">1 Player</button>
+  <button onclick="selectPlayers(2)">2 Players</button>
+
+  <div id="players">
+    <p id="player1Name"></p>
+    <p id="player2Name"></p>
+    <label for="rounds">Select number of rounds:</label>
+    <select id="rounds" onchange="toggleNextRoundButton()">
+      <option value="1">One</option>
+      <option value="3">Three</option>
+      <option value="5">Five</option>
+      <option value="7">Seven</option>
+    </select>
+    <div id="pics">
+      <img src="rpsfotolar/player1Rock.png" alt="Rock" onclick="play('rock')" />
+      <img src="rpsfotolar/player1Paper.png" alt="Paper" onclick="play('paper')"/>
+      <img src="rpsfotolar/player1Scissors.png" alt="Scissors"  onclick="play('scissors')"/>
+    </div>
+    <div id="pics2">
+      <img src="rpsfotolar/player2Rock.png" alt="Rock" onclick="play('rock')" />
+      <img src="rpsfotolar/player2Paper.png" alt="Paper" onclick="play('paper')"/>
+      <img src="rpsfotolar/player2Scissors.png" alt="Scissors"  onclick="play('scissors')"/>
+    </div>
+    
+    <p id="result"></p>
+  </div>
+
+  <button onclick="startNewGame()">Start New Game</button>
+  <button class="next-round-button" onclick="nextRound()">
+    Play Next Round
+  </button>
+
+
+
+    <script src="script.js"></script>
+  </body>
+</html>
