@@ -4,27 +4,36 @@ let maxRounds;
 let currentRound = 1;
 
 function selectPlayers(num) {
-  numberOfPlayers = num;
-  if (num === 1) {
-    player1Name = prompt("Please enter your name:");
-    player1Name = player1Name.trim() !== "" ? player1Name : "Player 1";
-    document.getElementById("player1Name").textContent = player1Name;
-  } else {
-    player1Name = prompt("Please enter Player 1's name:");
-    player1Name = player1Name.trim() !== "" ? player1Name : "Player 1";
-    document.getElementById("player1Name").textContent = player1Name;
+  const picsDiv = document.getElementById("pics");
+  const pics2Div = document.getElementById("pics2");
+  picsDiv.innerHTML = "";
+  pics2Div.innerHTML = "";
 
-    player2Name = prompt("Please enter Player 2's name:");
-    player2Name = player2Name.trim() !== "" ? player2Name : "Player 2";
-    document.getElementById("player2Name").textContent = player2Name;
+  for (let i = 0; i < 3; i++) {
+    const img1 = document.createElement("img");
+    img1.src = `rpsfotolar/player1${["Rock", "Paper", "Scissors"][i]}.png`;
+    img1.alt = ["Rock", "Paper", "Scissors"][i];
+    img1.onclick = () => play(["rock", "paper", "scissors"][i]);
+    picsDiv.appendChild(img1);
 
-    document.getElementById("pics2").style.display = "block";
-    document.getElementById("pics2").classList.add("pics2");
+    if (num === 2) {
+      const img2 = document.createElement("img");
+      img2.src = `rpsfotolar/player2${["Rock", "Paper", "Scissors"][i]}.png`;
+      img2.alt = ["Rock", "Paper", "Scissors"][i];
+      img2.onclick = () => play(["rock", "paper", "scissors"][i]);
+      pics2Div.appendChild(img2);
+    }
   }
-  document.getElementById("players").style.display = "block";
 
+  numberOfPlayers = num;
+  //document.getElementById("players").style.display = "block";
   toggleNextRoundButton();
 }
+
+
+
+// Rest of your code remains the same
+
 
 function startNewGame() {
   // Reset names and scores
@@ -36,7 +45,8 @@ function startNewGame() {
   document.getElementById("player1Name").textContent = "";
   document.getElementById("player2Name").textContent = "";
   document.getElementById("result").textContent = "";
-  document.getElementById("players").style.display = "none";
+  document.getElementById("pics").style.display = "none";
+  document.getElementById("pics2").style.display = "none";
   document.querySelector(".next-round-button").style.display = "none";
 }
 
