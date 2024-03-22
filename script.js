@@ -25,15 +25,15 @@ function selectPlayers(num) {
   for (let i = 0; i < 3; i++) {
     const img1 = document.createElement("img");
     img1.src = `rpsfotolar/player1${["Rock", "Paper", "Scissors"][i]}.png`;
-    img1.alt = ["Rock", "Paper", "Scissors"][i];
-    img1.onclick = () => play(["rock", "paper", "scissors"][i]);
+    img1.alt = ["rock", "paper", "scissors"][i];
+    img1.onclick = () => play(img1.alt);
     picsDiv.appendChild(img1);
 
     if (num === 2) {
       const img2 = document.createElement("img");
       img2.src = `rpsfotolar/player2${["Rock", "Paper", "Scissors"][i]}.png`;
-      img2.alt = ["Rock", "Paper", "Scissors"][i];
-      img2.onclick = () => play(["rock", "paper", "scissors"][i]);
+      img2.alt = ["rock", "paper", "scissors"][i];
+      img2.onclick = () => play(img2.alt);
       pics2Div.appendChild(img2);
     }
   }
@@ -70,34 +70,73 @@ function toggleNextRoundButton() {
 }
 
 function play(playerChoice) {
-  //document.getElementById("players").classList.add("players");
-  let kullaniciSecimi=playerChoice;
+  let choice1 = playerChoice;
+  let choice2;
 
+  if (numberOfPlayers === 1) {
+    choice2 = randomChoice();
+    alert("Your choice: " + choice1 + " and Computer choice: " + choice2);
+  } else if (numberOfPlayers === 2) {
+    if (!player1Name) {
+      player1Name = prompt("Please enter Player 1's name:");
+      player1Name = player1Name.trim() !== "" ? player1Name : "Player 1";
+      document.getElementById("player1Name").textContent = player1Name;
+    }
 
-  const computerChoice =
-    numberOfPlayers === 1
-      ? randomChoice()
-      : alert("Your choice: "+kullaniciSecimi);
+    // Wait for player 2 to click an image
+    document.querySelectorAll("#pics2 img").forEach(img => {
+      img.onclick = () => {
+        choice2 = img.alt;
+        alert("Your choice: " + choice1 + " and " + player2Name + "'s choice: " + choice2);
 
-  let result;
-  if (
-    (playerChoice === "rock" && computerChoice === "scissors") ||
-    (playerChoice === "paper" && computerChoice === "rock") ||
-    (playerChoice === "scissors" && computerChoice === "paper")
-  ) {
-    result =
-      numberOfPlayers === 1 ? `${player1Name} wins!` : `${player1Name} wins!`;
-  } else if (playerChoice === computerChoice) {
-    result = "";
+        let result;
+        if (
+          (choice1 === "rock" && choice2 === "scissors") ||
+          (choice1 === "paper" && choice2 === "rock") ||
+          (choice1 === "scissors" && choice2 === "paper")
+        ) {
+          result = `${player1Name} wins!`;
+        } else if (choice1 === choice2) {
+          result = "It's a tie. Try again!";
+        } else {
+          result = `${player2Name} wins!`;
+        }
+        document.getElementById("result").textContent = result;
+
+        if (result !== "") {
+          updateScore(result);
+        }
+      };
+    });
+
+    document.getElementById("player2Name").textContent = player2Name;
   } else {
-    result = numberOfPlayers === 1 ? "Computer wins!" : `${player2Name} wins!`;
+    alert("Make a choice for single or multiplayer");
+    return;
   }
-  document.getElementById("result").textContent = result;
 
-  if (result !== "") {
-    updateScore(result);
+  if (numberOfPlayers === 1) {
+    let result;
+    if (
+      (choice1 === "rock" && choice2 === "scissors") ||
+      (choice1 === "paper" && choice2 === "rock") ||
+      (choice1 === "scissors" && choice2 === "paper")
+    ) {
+      result = `${player1Name} wins!`;
+    } else if (choice1 === choice2) {
+      result = "It's a tie. Try again!";
+    } else {
+      result = "Computer wins!";
+    }
+    document.getElementById("result").textContent = result;
+
+    if (result !== "") {
+      updateScore(result);
+    }
   }
 }
+
+
 
 function nextRound() {
   currentRound++;
