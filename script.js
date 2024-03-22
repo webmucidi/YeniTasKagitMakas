@@ -8,7 +8,20 @@ function selectPlayers(num) {
   const pics2Div = document.getElementById("pics2");
   picsDiv.innerHTML = "";
   pics2Div.innerHTML = "";
-
+  numberOfPlayers=num;
+  console.log(numberOfPlayers);
+  if (numberOfPlayers === 1) {
+    player1Name = prompt("Please enter your name:");
+    player1Name = player1Name.trim() !== "" ? player1Name : "Player 1";
+    document.getElementById("player1Name").textContent = player1Name;
+  } else if(numberOfPlayers === 2){
+    player1Name = prompt("Please enter your name:");
+    player1Name = player1Name.trim() !== "" ? player1Name : "Player 1";
+    document.getElementById("player1Name").textContent = player1Name;
+    player2Name = prompt("Please enter Player 2's name:");
+    player2Name = player2Name.trim() !== "" ? player2Name : "Player 2";
+    document.getElementById("player2Name").textContent = player2Name;
+  }
   for (let i = 0; i < 3; i++) {
     const img1 = document.createElement("img");
     img1.src = `rpsfotolar/player1${["Rock", "Paper", "Scissors"][i]}.png`;
@@ -45,8 +58,8 @@ function startNewGame() {
   document.getElementById("player1Name").textContent = "";
   document.getElementById("player2Name").textContent = "";
   document.getElementById("result").textContent = "";
-  document.getElementById("pics").style.display = "none";
-  document.getElementById("pics2").style.display = "none";
+  document.getElementById("pics").innerHTML="";
+  document.getElementById("pics2").innerHTML="";
   document.querySelector(".next-round-button").style.display = "none";
 }
 
@@ -57,21 +70,14 @@ function toggleNextRoundButton() {
 }
 
 function play(playerChoice) {
-  document.getElementById("players").classList.add("players");
-  if (numberOfPlayers === 1) {
-    player1Name = prompt("Please enter your name:");
-    player1Name = player1Name.trim() !== "" ? player1Name : "Player 1";
-    document.getElementById("player1Name").textContent = player1Name;
-  } else {
-    player2Name = prompt("Please enter Player 2's name:");
-    player2Name = player2Name.trim() !== "" ? player2Name : "Player 2";
-    document.getElementById("player2Name").textContent = player2Name;
-  }
+  //document.getElementById("players").classList.add("players");
+  let kullaniciSecimi=playerChoice;
+
 
   const computerChoice =
     numberOfPlayers === 1
       ? randomChoice()
-      : prompt(player2Name + ", enter your choice (rock, paper, scissors):");
+      : alert("Your choice: "+kullaniciSecimi);
 
   let result;
   if (
